@@ -23,7 +23,6 @@ export default function EffectCoverflow({ swiper, extendParams, on }) {
     const center = isHorizontal ? -transform + swiperWidth / 2 : -transform + swiperHeight / 2;
     const rotate = isHorizontal ? params.rotate : -params.rotate;
     const translate = params.depth;
-    const r = getRotateFix(swiper);
     // Each slide offset from center
     for (let i = 0, length = slides.length; i < length; i += 1) {
       const slideEl = slides[i];
@@ -58,10 +57,8 @@ export default function EffectCoverflow({ swiper, extendParams, on }) {
       if (Math.abs(rotateX) < 0.001) rotateX = 0;
       if (Math.abs(scale) < 0.001) scale = 0;
 
-      const slideTransform = `translate3d(${translateX}px,${translateY}px,${translateZ}px)  rotateX(${r(
-        rotateX,
-      )}deg) rotateY(${r(rotateY)}deg) scale(${scale})`;
-      const targetEl = effectTarget(params, slideEl);
+      const slideTransform = `translate3d(${translateX}px,${translateY}px,${translateZ}px)  rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
+       const targetEl = effectTarget(params, slideEl);
       targetEl.style.transform = slideTransform;
 
       slideEl.style.zIndex = -Math.abs(Math.round(offsetMultiplier)) + 1;
